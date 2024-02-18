@@ -3,7 +3,7 @@ package org.iesalandalus.programacion.reservashotel.modelo.dominio;
 import java.util.Objects;
 
 
-public class Habitacion implements Comparable<Habitacion>{
+public abstract class Habitacion implements Comparable<Habitacion>{
 	
 	public static final double MIN_PRECIO_HABITACION=40;
 	public static final double MAX_PRECIO_HABITACION=150;
@@ -12,26 +12,25 @@ public class Habitacion implements Comparable<Habitacion>{
 	public static final int MIN_NUMERO_PLANTA=0;
 	public static final int MAX_NUMERO_PLANTA=3;
 	
-	private String identificador;
-	private int planta;
-	private int puerta;
-	private double precio;
-	private TipoHabitacion tipoHabitacion;
+	//Atributos protected para que se puedan utilizar en las clases hijas
+	//En el diagrama de clases se representa con una #
+	protected String identificador;
+	protected int planta;
+	protected int puerta;
+	protected double precio;
 	
-	public Habitacion (int planta,int puerta,double precio,TipoHabitacion tipoHabitacion) {
+	public Habitacion (int planta,int puerta,double precio) {
 		setPlanta(planta);
 		setPuerta(puerta);
 		setPrecio(precio);
-		setTipoHabitacion(tipoHabitacion);
 		setIdentificador();
 	}
 	
-	public Habitacion (int planta,int puerta,double precio,String identificador,TipoHabitacion tipoHabitacion) {
+	public Habitacion (int planta,int puerta,double precio,String identificador) {
 		setPlanta(planta);
 		setPuerta(puerta);
 		setPrecio(precio);
 		setIdentificador(identificador);
-		setTipoHabitacion(tipoHabitacion);
 	}
 	
 	public Habitacion (Habitacion habitacion) {
@@ -42,16 +41,20 @@ public class Habitacion implements Comparable<Habitacion>{
 			setPlanta(habitacion.getPlanta());
 			setPuerta(habitacion.getPuerta());
 			setPrecio(habitacion.getPrecio());
-			setIdentificador(habitacion.getIdentificador());
-			setTipoHabitacion(habitacion.getTipoHabitacion());}
+			setIdentificador(habitacion.getIdentificador());}
 	}
 	
+	//Metodo abstracto, solo se define, no se implementa en la clase padre
+	//Obligatoriamente se implementará en las clases hijas
+	public abstract int getNumeroMaximoPersonas();
 
-	public String getIdentificador() {
+	protected String getIdentificador() {
 		return identificador;
 	}
 
-	public void setIdentificador() {
+	//Maracamos protected en el metodo para que se utilice en la clase hija
+	//en el diagrama de clases se representa con una #
+	protected void setIdentificador() {
 		String Planta=Integer.toString(getPlanta());
 		String Puerta=Integer.toString(getPuerta());
 		identificador=Planta+Puerta;
@@ -68,7 +71,7 @@ public class Habitacion implements Comparable<Habitacion>{
 		return planta;
 	}
 
-	public void setPlanta(int planta) {
+	protected void setPlanta(int planta) {
 		if (planta<=MIN_NUMERO_PLANTA || planta>MAX_NUMERO_PLANTA) {
 			throw new IllegalArgumentException("ERROR: No se puede establecer como planta de una habitaci�n un valor menor que 0 ni mayor que 3.");}
 			else {this.planta = planta;}
@@ -78,7 +81,7 @@ public class Habitacion implements Comparable<Habitacion>{
 		return puerta;
 	}
 
-	public void setPuerta(int puerta) {
+	protected void setPuerta(int puerta) {
 		if (puerta<MIN_NUMERO_PUERTA || puerta>=MAX_NUMERO_PUERTA) {
 			throw new IllegalArgumentException("ERROR: No se puede establecer como puerta de una habitaci�n un valor menor que 0 ni mayor que 15.");}
 			else {this.puerta = puerta;}
@@ -88,20 +91,10 @@ public class Habitacion implements Comparable<Habitacion>{
 		return precio;
 	}
 
-	public void setPrecio(double precio) {
+	protected void setPrecio(double precio) {
 		if (precio<MIN_PRECIO_HABITACION || precio> MAX_PRECIO_HABITACION) {
 			throw new IllegalArgumentException("ERROR: No se puede establecer como precio de una habitaci�n un valor menor que 40.0 ni mayor que 150.0.");}
 			else {this.precio = precio;}
-	}
-
-	public TipoHabitacion getTipoHabitacion() {
-		return tipoHabitacion;
-	}
-
-	public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
-		if(tipoHabitacion==null) {
-		throw new NullPointerException("ERROR: No se puede establecer un tipo de habitaci�n nula.");}
-		else{this.tipoHabitacion = tipoHabitacion;}
 	}
 
 	@Override
@@ -123,7 +116,7 @@ public class Habitacion implements Comparable<Habitacion>{
 
 	@Override
 	public String toString() {
-		return "identificador="+ identificador +" ("+getPlanta()+"-"+getPuerta()+"), precio habitaci�n="+ precio +", tipo habitaci�n=" + tipoHabitacion ;
+		return "identificador="+ identificador +" ("+getPlanta()+"-"+getPuerta()+"), precio habitaci�n="+ precio;
 	}
 
 	@Override
