@@ -232,6 +232,7 @@ public class Consola {
 		Regimen RegimenElegido=null;
 		
 		System.out.println("Introduce una numero para elegir el tipo de regimen: ");
+		System.out.println("1-SOLO ALOJAMIENTO, 2-ALOJAMIENTO Y DESAYUNO, 3-MEDIA PENSION, 4-PENSION COMPLETA");
 		eleccion = Entrada.entero();
 	
 		switch (eleccion)

@@ -111,6 +111,9 @@ public class Vista {
 		catch(NullPointerException e){
 			System.out.println(e.getMessage());
 		}
+		catch(IllegalArgumentException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	private void buscarHuesped() {
@@ -127,6 +130,9 @@ public class Vista {
 		catch(NullPointerException e){
 			System.out.println(e.getMessage());
 		}
+		catch(IllegalArgumentException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	private void borrarHuesped() {
@@ -134,6 +140,9 @@ public class Vista {
 			controlador.borrar(Consola.getHuespedPorDni());
 		}
 		catch(NullPointerException e){
+			System.out.println(e.getMessage());
+		}
+		catch(IllegalArgumentException e){
 			System.out.println(e.getMessage());
 		}
 	}
@@ -154,7 +163,7 @@ public class Vista {
 		else {
 			System.out.println("No hay ningun huesped");
 		} 
-		}
+	}
 			
 	
 	private void insertarHabitacion() {
@@ -163,7 +172,11 @@ public class Vista {
 		}
 		catch(NullPointerException e){
 			System.out.println(e.getMessage());}
+		catch(IllegalArgumentException e){
+			System.out.println(e.getMessage());
 		}
+	}
+	
 	
 	
 	private void buscarHabitacion() {
@@ -179,6 +192,9 @@ public class Vista {
 		}
 		catch(NullPointerException e){
 			System.out.println(e.getMessage());}
+		catch(IllegalArgumentException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	private void borrarHabitacion() {
@@ -187,6 +203,9 @@ public class Vista {
 		}
 		catch(NullPointerException e){
 			System.out.println(e.getMessage());}
+		catch(IllegalArgumentException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	
@@ -214,6 +233,9 @@ public class Vista {
 		}
 		catch(NullPointerException e){
 			System.out.println(e.getMessage());}
+		catch(IllegalArgumentException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	
