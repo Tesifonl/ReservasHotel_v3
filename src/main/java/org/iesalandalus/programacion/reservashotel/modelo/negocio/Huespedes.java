@@ -43,7 +43,7 @@ public class Huespedes {
 			for (int i=0;i<coleccionHuespedes.size();i++) {
 				if(coleccionHuespedes.get(i).getDni().equals(huesped.getDni())) {
 					encontrado = true;
-					throw new OperationNotSupportedException("ERROR: Ya existe un huésped con ese dni.");
+					throw new OperationNotSupportedException("ERROR: Ya existe un hu�sped con ese dni.");
 				}
 			}	
 		
@@ -51,7 +51,7 @@ public class Huespedes {
 				coleccionHuespedes.add(huesped);
 			}
 			
-		}else {throw new NullPointerException("ERROR: No se puede insertar un huésped nulo.");}
+		}else {throw new NullPointerException("ERROR: No se puede insertar un hu�sped nulo.");}
 	}
 
 	public Huesped buscar(Huesped huesped) {	
@@ -72,7 +72,7 @@ public class Huespedes {
 				return coleccionHuespedes.get(posicion);
 			}
 			else {return null;}
-		}else {throw new NullPointerException("ERROR: No se puede buscar un huésped nulo.");}
+		}else {throw new NullPointerException("ERROR: No se puede buscar un hu�sped nulo.");}
 	}
 		
 	public void borrar (Huesped huesped) throws OperationNotSupportedException  {
@@ -91,8 +91,8 @@ public class Huespedes {
 				coleccionHuespedes.remove(indice);
 			}
 			else {
-				throw new OperationNotSupportedException("ERROR: No existe ningún huésped como el indicado.");}
+				throw new OperationNotSupportedException("ERROR: No existe ning�n hu�sped como el indicado.");}
 		
-		}else {throw new NullPointerException("ERROR: No se puede borrar un huésped nulo.");}
+		}else {throw new NullPointerException("ERROR: No se puede borrar un hu�sped nulo.");}
 	}
 }

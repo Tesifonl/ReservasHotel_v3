@@ -6,10 +6,14 @@ import java.util.ArrayList;
 
 import javax.naming.OperationNotSupportedException;
 
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Doble;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Reserva;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Simple;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Suite;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Triple;
 
 public class Reservas {
 
@@ -101,7 +105,7 @@ public class Reservas {
 
 		return nuevoArray;
 		
-	}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de un huesped nulo.");}
+	}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de un hu�sped nulo.");}
 	}
 	
 	public ArrayList<Reserva>  getReservas (TipoHabitacion tipoHabitacion) {
@@ -111,10 +115,27 @@ public class Reservas {
 			boolean encontrado=false;
 
 			for (int i=0;i<coleccionReservas.size();i++) {
-				if(coleccionReservas.get(i).getHabitacion().getTipoHabitacion().equals(tipoHabitacion)) {
-					encontrado=true;
-					nuevoArray.add(coleccionReservas.get(i));
-				}
+
+				if (coleccionReservas.get(i).getHabitacion() instanceof Simple
+						&& tipoHabitacion.equals(TipoHabitacion.SIMPLE)) {
+						nuevoArray.add(new Reserva(coleccionReservas.get(i)));
+						encontrado = true;
+					}
+					else if (coleccionReservas.get(i).getHabitacion()  instanceof Doble
+						&& tipoHabitacion.equals(TipoHabitacion.DOBLE)) {
+						nuevoArray.add(new Reserva(coleccionReservas.get(i)));
+						encontrado = true;
+					}
+					else if (coleccionReservas.get(i).getHabitacion()  instanceof Triple
+						&& tipoHabitacion.equals(TipoHabitacion.TRIPLE)) {
+						nuevoArray.add(new Reserva(coleccionReservas.get(i)));
+						encontrado = true;
+					}
+					else if (coleccionReservas.get(i).getHabitacion()  instanceof Suite
+						&& tipoHabitacion.equals(TipoHabitacion.SUITE)) {
+						nuevoArray.add(new Reserva(coleccionReservas.get(i)));
+						encontrado = true;
+					}
 			}
 			
 			if (encontrado==false) {
@@ -123,7 +144,7 @@ public class Reservas {
 							
 			return nuevoArray;
 			
-		}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de un tipo de habitación nula.");}
+		}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de un tipo de habitaci�n nula.");}
 	}
 	
 	
@@ -146,7 +167,7 @@ public class Reservas {
 		}
 		return nuevoArray;
 
-	}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de una habitación nula.");}
+	}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de una habitaci�n nula.");}
 	}
 
 	public void realizarCheckin(Reserva reserva, LocalDateTime fecha) {

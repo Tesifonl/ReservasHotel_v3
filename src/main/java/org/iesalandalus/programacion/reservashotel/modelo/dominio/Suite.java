@@ -5,7 +5,7 @@ public class Suite extends Habitacion {
 	//Constantes
 	private static final int NUM_MAXIMO_PERSONAS = 4;
 	public static final int MIN_NUM_BANOS = 0;
-	public static final int MAX_NUM_BANOS = 1;
+	public static final int MAX_NUM_BANOS = 2;
 	
 	//Atributos
 	public int numBanos;
@@ -62,8 +62,8 @@ public class Suite extends Habitacion {
 		
 		//Mismo toString que el de la clase Habitacion
 		//Si no se implementa, recoge el toString de la clase padre (Habitacion)
-		String texto = super.toString() + ", capacidad= " + NUM_MAXIMO_PERSONAS + " personas" +
-				"ba�os= " + numBanos;
+		String texto = super.toString() + ", habitaci�n suite, capacidad=" + NUM_MAXIMO_PERSONAS + " personas, " +
+				"ba�os=" + numBanos;
 		
 		if (tieneJacuzzi) {
 			texto = texto + ", con Jacuzzi";

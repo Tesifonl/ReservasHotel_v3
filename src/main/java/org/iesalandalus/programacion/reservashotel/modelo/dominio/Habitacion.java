@@ -48,7 +48,7 @@ public abstract class Habitacion implements Comparable<Habitacion>{
 	//Obligatoriamente se implementará en las clases hijas
 	public abstract int getNumeroMaximoPersonas();
 
-	protected String getIdentificador() {
+	public String getIdentificador() {
 		return identificador;
 	}
 

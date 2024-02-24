@@ -37,14 +37,43 @@ public class Reserva implements Comparable<Reserva>{
 			this.huesped = new Huesped (huesped);}
 	}
 	public Habitacion getHabitacion() {
-		return new Habitacion (habitacion);
+		if (habitacion instanceof Simple) {
+			//Devuelvo una nueva habitacion de la clase Simple
+			//y el parametro habitacion lo tengo que castear a tipo Simple
+			return new Simple((Simple)habitacion);
+		}
+		else if (habitacion instanceof Doble) {
+			return new Doble((Doble) habitacion);
+		}
+		else if (habitacion instanceof Triple) {
+			return new Triple((Triple) habitacion);
+		}
+		else {
+			return new Suite((Suite) habitacion);
+		}
 	}
+	
 	public void setHabitacion(Habitacion habitacion) {
 		if (habitacion==null) {
 			throw new NullPointerException("ERROR: La habitaci�n de una reserva no puede ser nula.");}
 		else {
-			this.habitacion = new Habitacion (habitacion);}
+			if (habitacion instanceof Simple) {
+				//Creo una nueva habitacion de la clase Simple
+				//y el parametro habitacion lo tengo que castear a tipo Simple
+				this.habitacion = new Simple ((Simple) habitacion);
+			}
+			else if (habitacion instanceof Doble) {
+				this.habitacion = new Doble ((Doble) habitacion);
+			}
+			else if (habitacion instanceof Triple) {
+				this.habitacion = new Triple ((Triple) habitacion);
+			}
+			else {
+				this.habitacion = new Suite ((Suite) habitacion);
+			}
+		}
 	}
+	
 	public Regimen getRegimen() {
 		return regimen;
 	}
@@ -123,15 +152,14 @@ public class Reserva implements Comparable<Reserva>{
 		
 		if (numeroPersonas<=0) {
 			throw new IllegalArgumentException("ERROR: El n�mero de personas de una reserva no puede ser menor o igual a 0.");}		
-		else if(habitacion.getTipoHabitacion().equals(TipoHabitacion.SIMPLE)&& numeroPersonas>1) {
-			throw new IllegalArgumentException("ERROR: El n�mero de personas de una reserva no puede superar al m�ximo de personas establacidas para el tipo de habitaci�n reservada.");}
-		else if(habitacion.getTipoHabitacion().equals(TipoHabitacion.DOBLE)&& numeroPersonas>2) {
-			throw new IllegalArgumentException("ERROR: El n�mero de personas de una reserva no puede superar al m�ximo de personas establacidas para el tipo de habitaci�n reservada.");}
-		else if(habitacion.getTipoHabitacion().equals(TipoHabitacion.TRIPLE)&& numeroPersonas>3) {
-			throw new IllegalArgumentException("ERROR: El n�mero de personas de una reserva no puede superar al m�ximo de personas establacidas para el tipo de habitaci�n reservada.");}
-		else if(habitacion.getTipoHabitacion().equals(TipoHabitacion.SUITE)&& numeroPersonas>4) {
-			throw new IllegalArgumentException("ERROR: El n�mero de personas de una reserva no puede superar al m�ximo de personas establacidas para el tipo de habitaci�n reservada.");}
-		else {this.numeroPersonas=numeroPersonas;}
+		//Si el numero de personas del parametro es mayor que el maximo numero de personas de la habitacion
+		//Dependiendo del tipo de instancia que sea el objeto habitacion automaticamente
+		//se ejecutará el metodo getNumeroPersonas de la clase hija correspondiente
+		else if(numeroPersonas > habitacion.getNumeroMaximoPersonas()) {
+			throw new IllegalArgumentException("ERROR: El n�mero de personas de una reserva no puede superar al m�ximo de personas establacidas para el tipo de habitaci�n reservada.");
+		}
+		
+		this.numeroPersonas = numeroPersonas;
 	}
 	
 	public Reserva(Huesped huesped,Habitacion habitacion, Regimen regimen,LocalDate fechaInicioReserva,LocalDate fechaFinReserva,int numeroPersonas) {
@@ -150,7 +178,20 @@ public class Reserva implements Comparable<Reserva>{
 		if (reserva==null) {throw new NullPointerException("ERROR: No es posible copiar una reserva nula.");}
 		else {
 		this.huesped=new Huesped(reserva.getHuesped());
-		this.habitacion=new Habitacion (reserva.getHabitacion());
+		
+		if (reserva.getHabitacion() instanceof Simple) {
+			this.habitacion=new Simple ((Simple) reserva.getHabitacion());
+		}
+		else if (reserva.getHabitacion() instanceof Doble) {
+			this.habitacion=new Doble ((Doble) reserva.getHabitacion());
+		}
+		else if (reserva.getHabitacion() instanceof Triple) {
+			this.habitacion=new Triple ((Triple) reserva.getHabitacion());
+		}
+		else {
+			this.habitacion=new Suite ((Suite) reserva.getHabitacion());
+		}
+		
 		setRegimen(reserva.getRegimen());
 		setFechaInicioReserva(reserva.getFechaInicioReserva());
 		setFechaFinReserva(reserva.getFechaFinReserva());
@@ -187,7 +228,7 @@ public class Reserva implements Comparable<Reserva>{
 		DateTimeFormatter formatoFechaHora = DateTimeFormatter.ofPattern(FORMATO_FECHA_HORA_RESERVA);
 		String formatoPrecio = String.format("%.2f", getPrecio());
 		
-		String texto = "Huesped: " + huesped.getNombre()+" "+huesped.getDni() + " Habitaci�n:"+ habitacion.getPlanta() + habitacion.getPuerta() + " - " +habitacion.getTipoHabitacion()
+		String texto = "Huesped: " + huesped.getNombre()+" "+huesped.getDni() + " Habitaci�n:"+ habitacion
 				+ " Fecha Inicio Reserva: " + getFechaInicioReserva().format(formatoFecha) 
 				+ " Fecha Fin Reserva: " + getFechaFinReserva().format(formatoFecha); 
 				

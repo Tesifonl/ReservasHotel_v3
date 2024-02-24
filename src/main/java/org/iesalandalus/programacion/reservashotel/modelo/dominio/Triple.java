@@ -5,7 +5,7 @@ public class Triple extends Habitacion {
 	//Constantes
 	private static final int NUM_MAXIMO_PERSONAS = 3;
 	public static final int MIN_NUM_BANOS = 0;
-	public static final int MAX_NUM_BANOS = 1;
+	public static final int MAX_NUM_BANOS = 2;
 	public static final int MIN_NUM_CAMAS_INDIVIDUALES = 0;
 	public static final int MAX_NUM_CAMAS_INDIVIDUALES = 3;
 	public static final int MIN_NUM_CAMAS_DOBLES = 0;
@@ -25,6 +25,7 @@ public class Triple extends Habitacion {
 		setNumBanos(numBanos);
 		setNumCamasIndividuales(numCamasIndividuales);
 		setNumCamasDobles(numCamasDobles);
+		validaNumCamas();
 	}
 	
 	public Triple(Triple habitacionTriple) {
@@ -36,6 +37,7 @@ public class Triple extends Habitacion {
 		setNumBanos(habitacionTriple.numBanos);
 		setNumCamasIndividuales(habitacionTriple.numCamasIndividuales);
 		setNumCamasDobles(habitacionTriple.numCamasDobles);
+		validaNumCamas();
 	}
 	
 	public int getNumBanos() {
@@ -55,8 +57,6 @@ public class Triple extends Habitacion {
 	
 	public void setNumCamasIndividuales(int numCamasIndividuales) {
 		this.numCamasIndividuales = numCamasIndividuales;
-		//Valido el numero de camas
-		validaNumCamas();
 	}
 	
 	public int getNumCamasDobles() {
@@ -71,22 +71,22 @@ public class Triple extends Habitacion {
 	public void validaNumCamas() {
 		if (this.numCamasIndividuales < MIN_NUM_CAMAS_INDIVIDUALES || 
 			this.numCamasIndividuales > MAX_NUM_CAMAS_INDIVIDUALES) {
-			throw new IllegalArgumentException("ERROR: El n�mero de camas individuales de una habitaci�n triple no puede ser inferior a" + MIN_NUM_CAMAS_INDIVIDUALES + " ni mayor que " + MAX_NUM_CAMAS_INDIVIDUALES);
+			throw new IllegalArgumentException("ERROR: El n�mero de camas individuales de una habitaci�n triple no puede ser inferior a " + MIN_NUM_CAMAS_INDIVIDUALES + " ni mayor que " + MAX_NUM_CAMAS_INDIVIDUALES);
 		}
 		
 		if (this.numCamasDobles < MIN_NUM_CAMAS_DOBLES || 
-				this.numCamasIndividuales > MAX_NUM_CAMAS_DOBLES) {
-				throw new IllegalArgumentException("ERROR: El n�mero de camas dobles de una habitaci�n triple no puede ser inferior a" + MIN_NUM_CAMAS_DOBLES + " ni mayor que " + MAX_NUM_CAMAS_DOBLES);
+				this.numCamasDobles > MAX_NUM_CAMAS_DOBLES) {
+				throw new IllegalArgumentException("ERROR: El n�mero de camas dobles de una habitaci�n triple no puede ser inferior a " + MIN_NUM_CAMAS_DOBLES + " ni mayor que " + MAX_NUM_CAMAS_DOBLES);
 			}
 		
 		if (this.numCamasDobles == MAX_NUM_CAMAS_DOBLES &&
-			this.numCamasIndividuales > MAX_NUM_CAMAS_INDIVIDUALES - 1) {
-				throw new IllegalArgumentException("ERROR: El n�mero de camas de la habitaci�n no es el correcto.");
+			this.numCamasIndividuales > MIN_NUM_CAMAS_INDIVIDUALES) {
+				throw new IllegalArgumentException("ERROR: La distribuci�n de camas en una habitaci�n triple tiene que ser " + Triple.MAX_NUM_CAMAS_INDIVIDUALES +" camas individuales y " + Triple.MIN_NUM_CAMAS_DOBLES + " doble o " + Triple.MIN_NUM_CAMAS_INDIVIDUALES + " cama individual y " + Triple.MAX_NUM_CAMAS_DOBLES + " doble");
 		}
 		
-		if (this.numCamasIndividuales == MAX_NUM_CAMAS_INDIVIDUALES &&
-			this.numCamasDobles > MIN_NUM_CAMAS_DOBLES) {
-				throw new IllegalArgumentException("ERROR: El n�mero de camas de la habitaci�n no es el correcto.");
+		if (this.numCamasDobles == MIN_NUM_CAMAS_DOBLES &&
+				this.numCamasIndividuales != MAX_NUM_CAMAS_INDIVIDUALES) {
+					throw new IllegalArgumentException("ERROR: La distribuci�n de camas en una habitaci�n triple tiene que ser " + Triple.MAX_NUM_CAMAS_INDIVIDUALES +" camas individuales y " + Triple.MIN_NUM_CAMAS_DOBLES + " doble o " + Triple.MIN_NUM_CAMAS_INDIVIDUALES + " cama individual y " + Triple.MAX_NUM_CAMAS_DOBLES + " doble");
 		}
 	}
 	
@@ -99,7 +99,7 @@ public class Triple extends Habitacion {
 	public String toString() {
 		//Devolver el mismo toString que el de la clase Habitacion
 		//Si no se implementa, recoge el toString de la clase padre (Habitacion)
-		return super.toString() + ", capacidad= " + NUM_MAXIMO_PERSONAS + " personas" +
-			"ba�os= " + numBanos + ",camas individuales= " + numCamasIndividuales + ", camas dobles= " + numCamasDobles; 
+		return super.toString() + ", habitaci�n triple, capacidad=" + NUM_MAXIMO_PERSONAS + " personas, " +
+			"ba�os=" + numBanos + ", camas individuales=" + numCamasIndividuales + ", camas dobles=" + numCamasDobles; 
 	}
 }

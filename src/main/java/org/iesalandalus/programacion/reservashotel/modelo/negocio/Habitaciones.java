@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import javax.naming.OperationNotSupportedException;
 
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Doble;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Simple;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Suite;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Triple;
 
 
 public class Habitaciones {
@@ -28,7 +32,18 @@ public class Habitaciones {
 		ArrayList<Habitacion> copiahabitaciones=new ArrayList<>();
 		
 		for (int i=0;i<coleccionHabitaciones.size();i++) {
-			copiahabitaciones.add(new Habitacion(coleccionHabitaciones.get(i)));
+			if (coleccionHabitaciones.get(i) instanceof Simple) {
+				copiahabitaciones.add(new Simple((Simple)coleccionHabitaciones.get(i)));
+			}
+			else if (coleccionHabitaciones.get(i) instanceof Doble) {
+				copiahabitaciones.add(new Doble((Doble)coleccionHabitaciones.get(i)));
+			}
+			else if (coleccionHabitaciones.get(i) instanceof Triple) {
+				copiahabitaciones.add(new Triple((Triple)coleccionHabitaciones.get(i)));
+			}
+			else if (coleccionHabitaciones.get(i) instanceof Suite) {
+				copiahabitaciones.add(new Suite((Suite)coleccionHabitaciones.get(i)));
+			}
 		}
 		
 		return copiahabitaciones;
@@ -41,8 +56,22 @@ public class Habitaciones {
 			ArrayList<Habitacion> nuevoArray= new ArrayList<>();
 
 			for (int i=0;i<coleccionHabitaciones.size();i++) {
-				if(coleccionHabitaciones.get(i).getTipoHabitacion().equals(tipoHabitacion)) {
-					nuevoArray.add(coleccionHabitaciones.get(i));
+
+				if (coleccionHabitaciones.get(i) instanceof Simple
+					&& tipoHabitacion.equals(TipoHabitacion.SIMPLE)) {
+					nuevoArray.add(new Simple((Simple)coleccionHabitaciones.get(i)));
+				}
+				else if (coleccionHabitaciones.get(i) instanceof Doble
+					&& tipoHabitacion.equals(TipoHabitacion.DOBLE)) {
+					nuevoArray.add(new Doble((Doble)coleccionHabitaciones.get(i)));
+				}
+				else if (coleccionHabitaciones.get(i) instanceof Triple
+					&& tipoHabitacion.equals(TipoHabitacion.TRIPLE)) {
+					nuevoArray.add(new Triple((Triple)coleccionHabitaciones.get(i)));
+				}
+				else if (coleccionHabitaciones.get(i) instanceof Suite
+					&& tipoHabitacion.equals(TipoHabitacion.SUITE)) {
+					nuevoArray.add(new Suite((Suite)coleccionHabitaciones.get(i)));
 				}
 			
 			}return nuevoArray;
@@ -61,7 +90,7 @@ public class Habitaciones {
 			for (int i=0;i<coleccionHabitaciones.size();i++) {
 				if(coleccionHabitaciones.get(i).getIdentificador().equals(habitacion.getIdentificador())) {
 					encontrado = true;
-					throw new OperationNotSupportedException("ERROR: Ya existe una habitación con ese identificador.");
+					throw new OperationNotSupportedException("ERROR: Ya existe una habitaci�n con ese identificador.");
 				}
 			}
 			
@@ -70,7 +99,7 @@ public class Habitaciones {
 			}
 		}
 		else {
-			throw new NullPointerException("ERROR: No se puede insertar una habitación nula.");
+			throw new NullPointerException("ERROR: No se puede insertar una habitaci�n nula.");
 		}
 	}
 
@@ -86,7 +115,7 @@ public class Habitaciones {
 				return buscarHabitacion;
 				}else return null;
 		}else {
-			throw new NullPointerException("ERROR: No se puede buscar una habitación nula.");}
+			throw new NullPointerException("ERROR: No se puede buscar una habitaci�n nula.");}
 	}
 	
 	public void borrar (Habitacion habitacion) throws OperationNotSupportedException {
@@ -103,9 +132,9 @@ public class Habitaciones {
 			if(encontrado==true){
 				coleccionHabitaciones.remove(indice);
 			}
-			else {throw new OperationNotSupportedException("ERROR: No existe ninguna habitación como la indicada.");}	
+			else {throw new OperationNotSupportedException("ERROR: No existe ninguna habitaci�n como la indicada.");}	
 		
-		}else {throw new NullPointerException("ERROR: No se puede borrar una habitación nula.");}
+		}else {throw new NullPointerException("ERROR: No se puede borrar una habitaci�n nula.");}
 	}
 	
 	

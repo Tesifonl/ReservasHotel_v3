@@ -21,6 +21,7 @@ public class Doble extends Habitacion {
 		//Los otros dos atributos de la propia clase se asignan con los setters
 		setNumCamasIndividuales(numCamasIndividuales);
 		setNumCamasDobles(numCamasDobles);
+		validaNumCamas();
 	}
 	
 	public Doble(Doble habitacionDoble) {
@@ -31,6 +32,7 @@ public class Doble extends Habitacion {
 		//objeto null, asignamos los datos a los atributos que faltan
 		setNumCamasIndividuales(habitacionDoble.numCamasIndividuales);
 		setNumCamasDobles(habitacionDoble.numCamasDobles);
+		validaNumCamas();
 	}
 	
 	public int getNumCamasIndividuales() {
@@ -38,9 +40,7 @@ public class Doble extends Habitacion {
 	}
 	
 	public void setNumCamasIndividuales(int numCamasIndividuales) {
-		this.numCamasIndividuales = numCamasIndividuales;
-		//Valido el numero de camas
-		validaNumCamas();
+		this.numCamasIndividuales = numCamasIndividuales;	
 	}
 	
 	public int getNumCamasDobles() {
@@ -49,7 +49,6 @@ public class Doble extends Habitacion {
 	
 	public void setNumCamasDobles(int numCamasDobles) {
 		this.numCamasDobles = numCamasDobles;
-		validaNumCamas();
 	}
 	
 	public void validaNumCamas() {
@@ -59,24 +58,25 @@ public class Doble extends Habitacion {
 		}
 		
 		if (this.numCamasDobles < MIN_NUM_CAMAS_DOBLES || 
-				this.numCamasIndividuales > MAX_NUM_CAMAS_DOBLES) {
+				this.numCamasDobles > MAX_NUM_CAMAS_DOBLES) {
 				throw new IllegalArgumentException("ERROR: El n�mero de camas dobles de una habitaci�n doble no puede ser inferior a " + MIN_NUM_CAMAS_DOBLES + " ni mayor que " + MAX_NUM_CAMAS_DOBLES);
 			}
 		
 		if (this.numCamasDobles == MAX_NUM_CAMAS_DOBLES &&
 			this.numCamasIndividuales > MIN_NUM_CAMAS_INDIVIDUALES) {
-				throw new IllegalArgumentException("ERROR: El n�mero de camas de la habitaci�n no es el correcto.");
+				throw new IllegalArgumentException("ERROR: La distribuci�n de camas en una habitaci�n doble tiene que ser " + Doble.MAX_NUM_CAMAS_INDIVIDUALES +" camas individuales y " + Doble.MIN_NUM_CAMAS_DOBLES + " doble o " + Doble.MIN_NUM_CAMAS_INDIVIDUALES + " camas individuales y " + Doble.MAX_NUM_CAMAS_DOBLES + " doble");
 		}
+
 		
 		if (this.numCamasIndividuales == MAX_NUM_CAMAS_INDIVIDUALES &&
 			this.numCamasDobles > MIN_NUM_CAMAS_DOBLES) {
-				throw new IllegalArgumentException("ERROR: El n�mero de camas de la habitaci�n no es el correcto.");
+				throw new IllegalArgumentException("ERROR: La distribuci�n de camas en una habitaci�n doble tiene que ser " + Doble.MAX_NUM_CAMAS_INDIVIDUALES +" camas individuales y " + Doble.MIN_NUM_CAMAS_DOBLES + " doble o " + Doble.MIN_NUM_CAMAS_INDIVIDUALES + " camas individuales y " + Doble.MAX_NUM_CAMAS_DOBLES + " doble");
 		}
 		
 		if (this.numCamasIndividuales == MIN_NUM_CAMAS_INDIVIDUALES + 1  &&
-				this.numCamasDobles != MAX_NUM_CAMAS_DOBLES - 1) {
-					throw new IllegalArgumentException("ERROR: El n�mero de camas de la habitaci�n no es el correcto.");
-			}
+			this.numCamasDobles != MAX_NUM_CAMAS_DOBLES) {
+			throw new IllegalArgumentException("ERROR: La distribuci�n de camas en una habitaci�n doble tiene que ser " + Doble.MAX_NUM_CAMAS_INDIVIDUALES +" camas individuales y " + Doble.MIN_NUM_CAMAS_DOBLES + " doble o " + Doble.MIN_NUM_CAMAS_INDIVIDUALES + " camas individuales y " + Doble.MAX_NUM_CAMAS_DOBLES + " doble");
+		}
 	}
 	
 	@Override
@@ -88,7 +88,7 @@ public class Doble extends Habitacion {
 	public String toString() {
 		//Devolver el mismo toString que el de la clase Habitacion
 		//Si no se implementa, recoge el toString de la clase padre (Habitacion)
-		return super.toString() + ", capacidad= " + NUM_MAXIMO_PERSONAS + " personas" +
-			"camas individuales= " + numCamasIndividuales + ", camas dobles= " + numCamasDobles; 
+		return super.toString() + ", habitaci�n doble, capacidad=" + NUM_MAXIMO_PERSONAS + " personas, " +
+			"camas individuales=" + numCamasIndividuales + ", camas dobles=" + numCamasDobles; 
 	}
 }
