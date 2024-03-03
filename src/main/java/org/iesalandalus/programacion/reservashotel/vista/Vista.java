@@ -274,8 +274,6 @@ public class Vista {
 			ArrayList<Reserva> reservas = controlador.getReservas(huesped);
 			Collections.sort(reservas, new Comparator<Reserva>() {
 
-				//Añadimos el segundo comparador, que será el comparador ya definido
-				//de la habitacion por planta y puerta
 				@Override
 				public int compare(Reserva o1, Reserva o2) {
 					return o1.getHabitacion().compareTo(o2.getHabitacion());
@@ -370,8 +368,6 @@ public class Vista {
 			ArrayList<Reserva> reservas = controlador.getReservas();
 			Collections.sort(reservas, new Comparator<Reserva>() {
 
-				//Añadimos el segundo comparador, que será el comparador ya definido
-				//de la habitacion por planta y puerta
 				@Override
 				public int compare(Reserva o1, Reserva o2) {
 					return o1.getHabitacion().compareTo(o2.getHabitacion());

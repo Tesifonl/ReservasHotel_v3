@@ -2,34 +2,27 @@ package org.iesalandalus.programacion.reservashotel.modelo.dominio;
 
 public class Doble extends Habitacion {
 
-	//Constantes
+	
 	private static final int NUM_MAXIMO_PERSONAS = 2;
 	public static final int MIN_NUM_CAMAS_INDIVIDUALES = 0;
 	public static final int MAX_NUM_CAMAS_INDIVIDUALES = 2;
 	public static final int MIN_NUM_CAMAS_DOBLES = 0;
 	public static final int MAX_NUM_CAMAS_DOBLES = 1;
 	
-	//Atributos
+	
 	private int numCamasIndividuales;
 	private int numCamasDobles;
 	
-	//Constructor
+	
 	public Doble(int planta, int puerta, double precio, int numCamasIndividuales, int numCamasDobles) {
-		//Llamamos al constructor de la clase padre para la planta, puerta y precio
 		super(planta, puerta, precio);
-		
-		//Los otros dos atributos de la propia clase se asignan con los setters
 		setNumCamasIndividuales(numCamasIndividuales);
 		setNumCamasDobles(numCamasDobles);
 		validaNumCamas();
 	}
 	
 	public Doble(Doble habitacionDoble) {
-		//Llamamos al constructor de copia de la clase padre
 		super(habitacionDoble);
-		
-		//Si el constructor de copia de la clase padre no lanza la excepcion por
-		//objeto null, asignamos los datos a los atributos que faltan
 		setNumCamasIndividuales(habitacionDoble.numCamasIndividuales);
 		setNumCamasDobles(habitacionDoble.numCamasDobles);
 		validaNumCamas();
@@ -86,8 +79,7 @@ public class Doble extends Habitacion {
 	
 	@Override
 	public String toString() {
-		//Devolver el mismo toString que el de la clase Habitacion
-		//Si no se implementa, recoge el toString de la clase padre (Habitacion)
+
 		return super.toString() + ", habitaci�n doble, capacidad=" + NUM_MAXIMO_PERSONAS + " personas, " +
 			"camas individuales=" + numCamasIndividuales + ", camas dobles=" + numCamasDobles; 
 	}

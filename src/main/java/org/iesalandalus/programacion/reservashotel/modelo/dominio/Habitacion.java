@@ -12,8 +12,7 @@ public abstract class Habitacion implements Comparable<Habitacion>{
 	public static final int MIN_NUMERO_PLANTA=0;
 	public static final int MAX_NUMERO_PLANTA=3;
 	
-	//Atributos protected para que se puedan utilizar en las clases hijas
-	//En el diagrama de clases se representa con una #
+
 	protected String identificador;
 	protected int planta;
 	protected int puerta;
@@ -44,16 +43,14 @@ public abstract class Habitacion implements Comparable<Habitacion>{
 			setIdentificador(habitacion.getIdentificador());}
 	}
 	
-	//Metodo abstracto, solo se define, no se implementa en la clase padre
-	//Obligatoriamente se implementará en las clases hijas
+
 	public abstract int getNumeroMaximoPersonas();
 
 	public String getIdentificador() {
 		return identificador;
 	}
 
-	//Maracamos protected en el metodo para que se utilice en la clase hija
-	//en el diagrama de clases se representa con una #
+
 	protected void setIdentificador() {
 		String Planta=Integer.toString(getPlanta());
 		String Puerta=Integer.toString(getPuerta());

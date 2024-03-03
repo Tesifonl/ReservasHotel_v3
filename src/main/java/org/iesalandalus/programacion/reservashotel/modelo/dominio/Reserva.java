@@ -38,8 +38,6 @@ public class Reserva implements Comparable<Reserva>{
 	}
 	public Habitacion getHabitacion() {
 		if (habitacion instanceof Simple) {
-			//Devuelvo una nueva habitacion de la clase Simple
-			//y el parametro habitacion lo tengo que castear a tipo Simple
 			return new Simple((Simple)habitacion);
 		}
 		else if (habitacion instanceof Doble) {
@@ -58,8 +56,6 @@ public class Reserva implements Comparable<Reserva>{
 			throw new NullPointerException("ERROR: La habitaci�n de una reserva no puede ser nula.");}
 		else {
 			if (habitacion instanceof Simple) {
-				//Creo una nueva habitacion de la clase Simple
-				//y el parametro habitacion lo tengo que castear a tipo Simple
 				this.habitacion = new Simple ((Simple) habitacion);
 			}
 			else if (habitacion instanceof Doble) {
@@ -152,9 +148,6 @@ public class Reserva implements Comparable<Reserva>{
 		
 		if (numeroPersonas<=0) {
 			throw new IllegalArgumentException("ERROR: El n�mero de personas de una reserva no puede ser menor o igual a 0.");}		
-		//Si el numero de personas del parametro es mayor que el maximo numero de personas de la habitacion
-		//Dependiendo del tipo de instancia que sea el objeto habitacion automaticamente
-		//se ejecutará el metodo getNumeroPersonas de la clase hija correspondiente
 		else if(numeroPersonas > habitacion.getNumeroMaximoPersonas()) {
 			throw new IllegalArgumentException("ERROR: El n�mero de personas de una reserva no puede superar al m�ximo de personas establacidas para el tipo de habitaci�n reservada.");
 		}
