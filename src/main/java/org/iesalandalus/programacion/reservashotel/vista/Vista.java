@@ -13,10 +13,14 @@ import javax.naming.OperationNotSupportedException;
 
 
 import org.iesalandalus.programacion.reservashotel.controlador.Controlador;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Doble;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Reserva;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Simple;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Suite;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Triple;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 public class Vista {
@@ -88,7 +92,7 @@ public class Vista {
 			String fecha2=Entrada.cadena();
 			LocalDate fechaFinReserva=Consola.leerFecha(fecha2);
 			
-			Habitacion habitacion = consultarDisponiblidad (tipoHabitacion,fechaInicioReserva,fechaFinReserva);
+			Habitacion habitacion = consultarDisponibilidad (tipoHabitacion,fechaInicioReserva,fechaFinReserva);
 			System.out.println(habitacion);
 		}	
 		
@@ -229,7 +233,31 @@ public class Vista {
 	
 	private void insertarReserva() {
 		try {
-			controlador.insertar(Consola.leerReserva());
+			Reserva nuevaReserva = Consola.leerReserva();
+			TipoHabitacion tipo = null;
+			
+			if (nuevaReserva.getHabitacion() instanceof Simple) {
+				tipo = TipoHabitacion.SIMPLE;
+			}
+			else if (nuevaReserva.getHabitacion() instanceof Doble) {
+				tipo = TipoHabitacion.DOBLE;
+			}
+			else if (nuevaReserva.getHabitacion() instanceof Triple) {
+				tipo = TipoHabitacion.TRIPLE;
+			}
+			else if (nuevaReserva.getHabitacion() instanceof Suite) {
+				tipo = TipoHabitacion.SUITE;
+			}
+			
+
+			if (consultarDisponibilidad(tipo, 
+					                    nuevaReserva.getFechaInicioReserva(),
+					                    nuevaReserva.getFechaFinReserva()) != null){
+				controlador.insertar(nuevaReserva);
+			}
+			else {
+				System.out.println("No hay disponibilida para las fechas solicitadas en la reserva.");
+			}
 		}
 		catch(NullPointerException e){
 			System.out.println(e.getMessage());}
@@ -361,7 +389,7 @@ public class Vista {
 		}
 	}
 	
-	private Habitacion consultarDisponiblidad (TipoHabitacion tipoHabitacion, LocalDate fechaInicioReserva, LocalDate fechaFinReserva){
+	private Habitacion consultarDisponibilidad (TipoHabitacion tipoHabitacion, LocalDate fechaInicioReserva, LocalDate fechaFinReserva){
 		
 		ArrayList<Reserva> nuevoArray=controlador.getReservas(tipoHabitacion);
 		boolean habitacionesLibres=false;
@@ -395,7 +423,7 @@ public class Vista {
 	
 	
 	private void realizarChechin() {
-		ArrayList<Reserva> nuevoArray= controlador.getReservas(Consola.leerHuesped());
+		ArrayList<Reserva> nuevoArray= controlador.getReservas(Consola.getHuespedPorDni());
 		Reserva reservaCheck=null;
 		
 		int contador=0;
@@ -423,7 +451,7 @@ public class Vista {
 	}
 	
 	private void realizarChechout() {
-		ArrayList<Reserva> nuevoArray= controlador.getReservas(Consola.leerHuesped());
+		ArrayList<Reserva> nuevoArray= controlador.getReservas(Consola.getHuespedPorDni());
 		Reserva reservaCheck=null;
 		
 		int contador=0;

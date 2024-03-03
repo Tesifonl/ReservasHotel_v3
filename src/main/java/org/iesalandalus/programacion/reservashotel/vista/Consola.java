@@ -159,6 +159,20 @@ public class Consola {
         }
 	}
 	
+	public static LocalDateTime leerFechaHora(String mensaje ) {
+        String pattern = "dd/MM/yyyy hh:mm";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+        try {
+           
+            LocalDateTime fechaLocalDate = LocalDateTime.parse(mensaje, formatter);
+            return fechaLocalDate;
+        } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+	}
+	
 	public static Habitacion leerHabitacion( ) {
 	
 			try {
@@ -223,7 +237,7 @@ public class Consola {
 		System.out.println("Introduce un puerta: ");
 		int puerta=Entrada.entero();
 		
-		Habitacion habitacion=new Habitacion( planta, puerta, 50, TipoHabitacion.DOBLE);
+		Habitacion habitacion=new Doble( planta, puerta, 50, 0, 1);
 		return habitacion;
 		}
 		catch(IllegalArgumentException e){
@@ -241,7 +255,12 @@ public class Consola {
 		TipoHabitacion tipoHabitacionElegida=null;
 		
 		System.out.println("Introduce una numero para elegir el tipo de habitacion: ");
-		System.out.println("1-SIMPLE, 2-DOBLE, 3-TRIPLE, 4-SUITE");
+		
+		for (int i = 0; i < TipoHabitacion.values().length; i++) {
+			System.out.print(TipoHabitacion.values()[i] + " ");
+		}
+		System.out.println();
+		
 		eleccion = Entrada.entero();
 		
 		switch (eleccion)
@@ -269,7 +288,12 @@ public class Consola {
 		Regimen RegimenElegido=null;
 		
 		System.out.println("Introduce una numero para elegir el tipo de regimen: ");
-		System.out.println("1-SOLO ALOJAMIENTO, 2-ALOJAMIENTO Y DESAYUNO, 3-MEDIA PENSION, 4-PENSION COMPLETA");
+		
+		for (int i = 0; i < Regimen.values().length; i++) {
+			System.out.print(Regimen.values()[i] + " ");
+		}
+		System.out.println();
+		
 		eleccion = Entrada.entero();
 	
 		switch (eleccion)
@@ -295,8 +319,8 @@ public class Consola {
 	public static Reserva leerReserva() {
 		
 		try {
-			Huesped huesped=new Huesped(leerHuesped());
-			Habitacion habitacion=new Habitacion(leerHabitacion());
+			Huesped huesped=new Huesped(getHuespedPorDni());
+			Habitacion habitacion=leerHabitacionPorIdentificador();
 			Regimen regimen=leerRegimen();
 			System.out.println("Introduce una fecha de inicio de reserva");
 			String fechaInicio=Entrada.cadena();

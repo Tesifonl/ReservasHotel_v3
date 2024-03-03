@@ -1,7 +1,7 @@
 package org.iesalandalus.programacion.reservashotel.modelo.dominio;
 
 public enum TipoHabitacion {
-	SUITE ("Suite"), SIMPLE ("Single"), DOBLE("Doble"), TRIPLE("Triple");
+	SIMPLE ("Single"), DOBLE("Doble"), TRIPLE("Triple"), SUITE ("Suite");
 	
 	private String cadenaAMostrar;
 
